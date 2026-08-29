@@ -1,0 +1,8 @@
+/* Habilita las clases utilitarias de Tailwind (flex, object-cover, etc.)
+   que ya se usaban en CategoryPreview.vue pero nunca generaban CSS real
+   porque ningún archivo importaba "tailwindcss". Se importa solo el
+   tema + utilidades, sin preflight (el reset global de Tailwind), para
+   no alterar el look de las otras librerías de UI del proyecto
+   (Vuetify, Quasar, Bootstrap, PrimeVue, Element Plus). */
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/utilities.css" layer(utilities);
