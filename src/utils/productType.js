@@ -3,7 +3,7 @@ const TYPE_COLORS = {
   Indoor: 'teal',
   Hydro: 'blue',
   Exotic: 'deep-purple',
-  Frasco: 'lime',
+  Frasco: 'red',
   Cart: 'cyan',
   'Pre-Roll': 'orange',
   Hongos: 'pink',

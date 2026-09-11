@@ -7,14 +7,12 @@ function formatDeliveryLine(order) {
     const address = order.address?.trim() || 'por confirmar';
     return `Entrega a domicilio (dirección: ${address})`;
   }
-  return 'Recoger en tienda';
+  return 'Recoger en punto medio';
 }
 
 
 export function buildOrderMessage(order) {
-  // presentationPrice ahora llega como número (precio de la
-  // presentación elegida en Supabase), así que lo formateamos aquí
-  // ($1,300 en vez de 1300) en vez de asumir que ya viene formateado.
+  
   const unitPrice = parsePriceToNumber(order.presentationPrice);
   const priceDisplay = unitPrice !== null ? formatPriceMXN(unitPrice) : order.presentationPrice;
 
