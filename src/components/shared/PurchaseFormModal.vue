@@ -3,7 +3,7 @@
     <v-card v-if="state.product" class="purchase-card">
       <v-card-title class="purchase-title">Completa tu pedido</v-card-title>
 
-      <v-card-text>
+      <v-card-text data-lenis-prevent>
         <v-form ref="formRef">
           <!-- Bloque 1: qué se está comprando -->
           <div class="form-section">
@@ -56,6 +56,7 @@
 
             <v-radio-group
               v-model="form.deliveryMethod"
+              color="primary"
               label="Entrega"
               :rules="[rules.required]"
               density="comfortable"
@@ -100,7 +101,7 @@
 
       <v-card-actions class="justify-end pb-4 pr-4">
         <v-btn variant="text" @click="closePurchaseForm">Cancelar</v-btn>
-        <v-btn color="green-darken-3" variant="flat" @click="handleSubmit">
+        <v-btn color="primary" variant="flat" class="g-submit" @click="handleSubmit">
           <FontAwesomeIcon icon="fa-brands fa-whatsapp" class="mr-2" /> Enviar pedido
         </v-btn>
       </v-card-actions>
@@ -206,11 +207,13 @@ const handleSubmit = async () => {
 <style scoped>
 
 .purchase-card {
-  background: #1a1a1a;
-  border-radius: 16px;
+  background: rgba(10, 16, 10, 0.96);
+  border: 1px solid rgba(57, 255, 20, 0.22);
+  border-radius: 24px;
+  box-shadow: 0 30px 90px -20px rgba(57, 255, 20, 0.35);
 }
 .purchase-title {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Unbounded', 'Poppins', sans-serif;
   font-weight: 700;
   color: #eee;
 }
@@ -219,7 +222,7 @@ const handleSubmit = async () => {
   font-family: 'Poppins', sans-serif;
   font-size: 0.75rem;
   font-weight: 700;
-  color: #4caf50;
+  color: #39ff14;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   margin-bottom: 6px;
@@ -234,16 +237,22 @@ const handleSubmit = async () => {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: #111;
-  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 12px;
   padding: 10px 14px;
   color: #bbb;
   font-size: 0.9rem;
 }
 .total-amount {
-  color: #4caf50;
+  color: #39ff14;
   font-weight: 700;
   font-size: 1.1rem;
+}
+.g-submit {
+  background: linear-gradient(135deg, #39ff14, #b6ff00) !important;
+  color: #031003 !important;
+  font-weight: 800;
+  border-radius: 12px;
 }
 .hours-hint {
   font-size: 0.75rem;
