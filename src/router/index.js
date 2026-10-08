@@ -5,6 +5,20 @@ import MayoristasView from '@/views/MayoristasView.vue';
 import AboutView from '@/views/AboutView.vue';
 import { CATEGORIES } from '@/utils/categories';
 
+function waitForElement(selector, timeout = 2000) {
+  return new Promise((resolve) => {
+    const start = performance.now();
+    const tick = () => {
+      let el = null;
+      try { el = document.querySelector(selector); } catch (e) { return resolve(false); }
+      if (el) return resolve(true);
+      if (performance.now() - start > timeout) return resolve(false);
+      requestAnimationFrame(tick);
+    };
+    tick();
+  });
+}
+
 const categoryRoutes = CATEGORIES.map((c) => ({
   path: c.path,
   component: CategoryView,
@@ -25,9 +39,15 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(),
   routes,
-  scrollBehavior: (to, from, saved) => {
+  // Con la transición entre páginas, la vista nueva se monta un instante
+  // después de navegar: esperamos a que exista el ancla antes de hacer scroll.
+  // Si no aparece (por ejemplo #ofertas sin promociones activas), vamos arriba.
+  scrollBehavior: async (to, from, saved) => {
     if (saved) return saved;
-    if (to.hash) return { el: to.hash, top: 96, behavior: 'smooth' };
+    if (to.hash) {
+      const found = await waitForElement(to.hash);
+      return found ? { el: to.hash, top: 96, behavior: 'smooth' } : { top: 0 };
+    }
     return { top: 0 };
   },
 });
