@@ -6,9 +6,9 @@
 import { computed } from 'vue';
 import { typeHex } from '@/utils/productType';
 
-const props = defineProps({ type: String, label: String });
+const props = defineProps({ type: String, label: String, color: String });
 const style = computed(() => {
-  const c = typeHex(props.type);
-  return { color: c, background: `${c}2e`, borderColor: `${c}77` };
+  const c = props.color || typeHex(props.type);
+  return { color: c, backgroundColor: `${c}33`, borderColor: `${c}77` };
 });
 </script>

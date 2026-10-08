@@ -91,7 +91,7 @@ export function startSmoke(canvas) {
   if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   cv = canvas; cx = cv.getContext('2d');
   mob = matchMedia('(max-width: 820px)').matches;
-  MAXP = mob ? 110 : 230;
+  MAXP = mob ? 110 : (navigator.hardwareConcurrency || 8) <= 4 ? 150 : 230;
   dpr = Math.min(devicePixelRatio || 1, 2);
   resize();
   addEventListener('resize', resize);
