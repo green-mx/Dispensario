@@ -50,4 +50,20 @@ export function sendWhatsAppOrder(order) {
   window.open(`https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(message)}`, '_blank');
 }
 
+// Pedido a mayoreo: producto + la escala que eligió el cliente (si eligió una)
+export function buildMayoreoMessage({ productName, tier }) {
+  const lines = ['Hola, me interesa comprar a mayoreo:', '', `Producto: ${productName}`];
+  if (tier) {
+    const price = formatPriceMXN(tier.price);
+    lines.push(`Escala: ${tier.label} - ${price}${tier.suffix ? ` ${tier.suffix}` : ''}`);
+  }
+  lines.push('', '¿Tienen disponibilidad y me pueden dar más información?');
+  return lines.join('\n');
+}
+
+export function sendWhatsAppMayoreo(data) {
+  const message = buildMayoreoMessage(data);
+  window.open(`https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(message)}`, '_blank');
+}
+
 export { WHATSAPP_PHONE };
