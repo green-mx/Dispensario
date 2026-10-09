@@ -218,3 +218,12 @@ html.lenis, html.lenis body { height: auto; }
 .g-tprice { font: 700 clamp(1.05rem, 2.4vw, 1.4rem) 'Unbounded', sans-serif; color: var(--g-n); }
 .g-tright small { color: var(--g-mut); font-size: .75rem; }
 .g-best { align-self: center; color: #031003; background-color: var(--g-n2); border-color: transparent; background-image: none; }
+
+/* Mayoreo: escalas elegibles + botón de WhatsApp */
+.g-tpick { cursor: pointer; padding-left: 10px; padding-right: 10px; margin: 0 -10px; border-radius: 12px; transition: background .2s; }
+.g-tpick:hover { background: #ffffff0a; }
+.g-tpick.g-sel { background: #39ff1418; outline: 1px solid var(--g-n); }
+.g-tpick.g-tout { opacity: .45; cursor: not-allowed; }
+.g-mwa { margin-top: 22px; width: 100%; justify-content: center; border: 0; cursor: pointer; }
+.g-mwa:disabled { background: #1c1f1c; color: #707870; cursor: not-allowed; }
+.g-mhint { margin: 8px 0 0; text-align: center; font-size: .75rem; color: var(--g-mut); }

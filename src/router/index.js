@@ -31,8 +31,7 @@ const routes = [
   ...categoryRoutes,
   { path: '/mayoristas', component: MayoristasView, meta: { title: 'Menú Mayoristas · Green' } },
   // Aliases para las rutas viejas por si hubiera links externos
-  { path: '/pre-rolados', redirect: '/otros' },
-  { path: '/carts', redirect: '/otros' },
+  { path: '/pre-rolados', redirect: '/pre-rolls' },
   { path: '/about', component: AboutView, meta: { title: 'Nosotros · Green' } },
 ];
 

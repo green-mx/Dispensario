@@ -22,7 +22,7 @@ import { ref, computed, onMounted } from 'vue';
 import GProductCard from '@/components/green/GProductCard.vue';
 import GFilterChips from '@/components/green/GFilterChips.vue';
 import GComingSoon from '@/components/green/GComingSoon.vue';
-import { CATEGORIES, isEdible } from '@/utils/categories';
+import { CATEGORIES, belongsElsewhere } from '@/utils/categories';
 import { fetchProductosPorCategoria } from '@/composables/useSupabaseProducts';
 
 const props = defineProps({ slug: { type: String, required: true } });
@@ -41,11 +41,16 @@ onMounted(async () => {
   if (cfg.soon) return;
   try {
     let list = await fetchProductosPorCategoria(cfg.categoria);
-    if (cfg.slug === 'edibles') {
-      // Las gomitas que hoy viven en "otros" también salen aquí
+    if (cfg.fromOtros) {
+      // Productos que todavía están guardados como 'otros' pero que son de
+      // esta categoría (carts, pre-rolls, edibles) también salen aquí.
       const otros = await fetchProductosPorCategoria('otros');
       const ids = new Set(list.map((p) => p.id));
-      list = [...list, ...otros.filter((p) => isEdible(p) && !ids.has(p.id))];
+      list = [...list, ...otros.filter((p) => cfg.fromOtros(p) && !ids.has(p.id))];
+    }
+    if (cfg.onlyLeftovers) {
+      // 'Otros' solo muestra lo que no tiene una categoría propia
+      list = list.filter((p) => !belongsElsewhere(p));
     }
     products.value = list;
   } catch (e) {

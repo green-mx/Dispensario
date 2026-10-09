@@ -121,8 +121,14 @@ onMounted(async () => {
   try { gsap.from(heroEl.value, { opacity: 0, scale: 0.96, y: 30, duration: 1.1, ease: 'power3.out', clearProps: 'all' }); } catch (e) { /* sin animación */ }
   try {
     // Sin Top Shelf en destacados (igual que antes)
-    const [weed, otros] = await Promise.all([fetchProductosPorCategoria('weed'), fetchProductosPorCategoria('otros')]);
-    featured.value = [...weed, ...otros].slice(0, 8);
+    const [weed, otros, carts, preRolls] = await Promise.all([
+      fetchProductosPorCategoria('weed'),
+      fetchProductosPorCategoria('otros'),
+      fetchProductosPorCategoria('carts'),
+      fetchProductosPorCategoria('pre-rolls'),
+    ]);
+    const seen = new Set();
+    featured.value = [...weed, ...preRolls, ...carts, ...otros].filter((p) => !seen.has(p.id) && seen.add(p.id)).slice(0, 8);
   } catch (e) {
     console.error('Error cargando destacados desde Supabase:', e);
   }
